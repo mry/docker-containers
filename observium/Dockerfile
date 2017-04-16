@@ -38,13 +38,9 @@ RUN locale-gen ru_RU.UTF-8
 RUN locale-gen sl_SI.UTF-8
 RUN locale-gen uk_UA.UTF-8
 
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0xcbcb082a1bb943db && \
-    echo "deb http://mariadb.mirror.iweb.com/repo/5.5/ubuntu `lsb_release -cs` main" \
-    > /etc/apt/sources.list.d/mariadb.list
-
 # Install Observium prereqs
 RUN apt-get update -q && \
-    apt-get install -y --no-install-recommends mariadb-server mariadb-client \
+    apt-get install -y --no-install-recommends mariadb-server-5.5 mariadb-client-5.5 \
       libapache2-mod-php5 php5-cli php5-json wget unzip software-properties-common pwgen \
       php5-mysql php5-gd php5-mcrypt python-mysqldb rrdtool subversion whois mtr-tiny at \
       nmap ipmitool graphviz imagemagick php5-snmp php-pear snmp graphviz fping libvirt-bin
@@ -80,6 +76,7 @@ RUN chmod +x /etc/my_init.d/firstrun.sh && \
     chown -R nobody:users /var/log/mysql* && \
     chown -R nobody:users /var/lib/mysql && \
     chown -R nobody:users /etc/mysql && \
+    mkdir -p /var/run/mysqld && \
     chown -R nobody:users /var/run/mysqld
 
 # Configure apache2 to serve Observium app
