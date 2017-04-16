@@ -17,8 +17,8 @@ else
 fi
 
 ln -s /config/config.php /opt/observium/config.php
-chown nobody:users -R /opt/observium
-chmod 755 -R /opt/observium
+chown nobody:users /opt/observium/config.php
+chmod 755 /opt/observium/config.php
 
 if [ -f /etc/container_environment/TZ ] ; then
   sed -i "s#\;date\.timezone\ \=#date\.timezone\ \=\ $TZ#g" /etc/php5/cli/php.ini
